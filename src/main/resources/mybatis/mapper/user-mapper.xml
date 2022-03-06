@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codepresso.codepressoblog.mapper.UserMapper">
+    <insert id="signup">
+        INSERT INTO user(email, name, password)
+        VALUES (#{user.email}, #{user.name}, #{user.password});
+    </insert>
+
+    <select id="login" resultType="com.codepresso.codepressoblog.vo.User">
+       SELECT *
+       FROM user
+       WHERE email=#{user.email} AND password=#{user.password}
+    </select>
+
+    <insert id="createSession">
+        INSERT INTO user_session(user_id, name)
+        VALUES (#{user.id}, #{user.name})
+    </insert>
+
+    <select id="createCookie" resultType="com.codepresso.codepressoblog.vo.UserSession">
+        SELECT *
+        FROM user_session
+        WHERE user_id=#{user.id}
+    </select>
+
+    <delete id="logout">
+        DELETE
+        FROM user_session
+        WHERE id=#{id}
+    </delete>
+</mapper>
